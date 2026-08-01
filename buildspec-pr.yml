@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+       - echo Instalando Node.js 24.x e npm...
+       - curl -fsSL https://rpm.nodesource.com/setup_24.x | sudo bash -
+       - sudo yum install -y nodejs
+
+  build:
+    commands:
+      - cd client && npm install --legacy-peer-deps --loglevel=error
+      - cd client && VITE_API_URL=http://localhost:3001 npm run build
+      - rodando testes unitarios
+      - cd client && npm test
+    
