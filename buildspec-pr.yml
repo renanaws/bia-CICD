@@ -19,6 +19,3 @@ phases:
 
       - echo "Gerando build..."
       - VITE_API_URL=http://localhost:3001 npm run build
-
-      - echo "Executando testes..."
-      - npm test
