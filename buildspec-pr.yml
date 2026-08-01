@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Instalando Node.js 24.x e npm..."
+      - echo "Instalando Node.js 24.x..."
       - curl -fsSL https://rpm.nodesource.com/setup_24.x | sudo bash -
       - sudo yum install -y nodejs
       - node -v
@@ -11,11 +11,18 @@ phases:
 
   build:
     commands:
-      - echo "Entrando na pasta client..."
-      - cd client
-
-      - echo "Instalando dependências..."
+      - echo "Instalando dependências da raiz..."
       - npm install --legacy-peer-deps --loglevel=error
 
-      - echo "Gerando build..."
+      - echo "Instalando dependências do frontend..."
+      - cd client
+      - npm install --legacy-peer-deps --loglevel=error
+
+      - echo "Gerando build do frontend..."
       - VITE_API_URL=http://localhost:3001 npm run build
+
+      - cd ..
+
+      - echo "Executando testes do backend..."
+      - npm test
+
